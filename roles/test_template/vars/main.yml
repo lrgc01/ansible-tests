@@ -1,0 +1,4 @@
+---
+my_name: "Luiz Rogerio"
+iface_vlan_5: "{{ ansible_interfaces[3] }}"
+iface_vlan_10: "{{ ansible_interfaces[1] }}"

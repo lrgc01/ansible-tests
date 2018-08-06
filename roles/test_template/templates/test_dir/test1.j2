@@ -1,0 +1,20 @@
+#jinja2:variable_start_string:'[%', variable_end_string:'%]'
+This should be evaluated to my name:
+  [% my_name %]
+Some system facts:
+hostname=[% ansible_hostname %]
+nodename=[% ansible_nodename %]
+os_family=[% ansible_os_family %]
+distribution=[% ansible_distribution %]
+distrib_release_name=[% ansible_distribution_release %]
+distrib_version=[% ansible_distribution_version %]
+interfaces=[% ansible_interfaces %]
+if1=[% ansible_interfaces[0] %]
+
+{% if ansible_hostname == 'ubuntu4' %}
+Iface_vlan_5=[% ansible_interfaces[3] %]
+Iface_vlan_10=[% ansible_interfaces[4] %]
+{% else %}
+Iface_vlan_5=[% iface_vlan_5 %]
+Iface_vlan_10=[% iface_vlan_10 %]
+{% endif %}

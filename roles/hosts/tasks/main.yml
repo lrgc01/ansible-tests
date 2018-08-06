@@ -1,0 +1,4 @@
+---
+- name: etc hosts
+  copy: src=hosts dest=/etc/hosts
+  tags: config_files

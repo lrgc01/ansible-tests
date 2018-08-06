@@ -1,0 +1,4 @@
+---
+- name: template test 1
+  template: src=test_dir/test1.j2 dest=/home/luiz/test1
+  tags: config_files

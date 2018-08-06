@@ -1,0 +1,48 @@
+
+127.0.0.1	localhost
+
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost ip6-localhost ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+
+192.168.0.197           newage1-ext
+192.168.0.196           controller-ext
+192.168.0.195           orangepi-ext
+192.168.0.194           linux1 linux-note
+192.168.0.193           ubuntu1-ext 
+192.168.0.192           debian1-ext 
+192.168.0.191           debian2-ext 
+192.168.0.190           debian3-ext 
+
+192.168.56.1            newage1 ntp
+192.168.56.2            orangepi
+
+192.168.56.196          controller1 
+192.168.56.195          controller controller2 
+192.168.56.186          compute1
+192.168.56.185          compute2
+192.168.56.176          block1
+192.168.56.166          object1
+192.168.56.165          object2
+192.168.56.193          ubuntu1 
+192.168.56.11           ubuntu4
+192.168.56.192          debian1 puppet puppetdb
+192.168.56.191          debian2 # DB servers, MQ srv, memcache srv
+192.168.56.190          debian3
+
+# Services
+# mysqldb = DB controller1 / puppet
+# mysqldb2 = DB controller2
+# postgresqldb = puppetdb
+192.168.56.210          mysqldb postgresqlDB puppetdb-psql ostackdb memcache rabbitmq
+192.168.56.211          mysqldb2
+
+192.168.56.50           docker1
+192.168.56.51           docker2
+
+192.168.0.19            epson
+#192.168.0.33           orangepi
+
+192.168.0.200           tp-link
+192.168.0.1             humax net router
