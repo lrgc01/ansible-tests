@@ -1,0 +1,3 @@
+---
+conf_dir: "/home/luiz/etc"
+tmpl_list: { "glance": ["glance-api.conf","glance-registry.conf"], "keystone" : "keystone.conf" }

@@ -1,0 +1,4 @@
+---
+- name: install templates
+  command: echo src="{{ item }}" dest="{{ conf_dir }}/{{ item }}.j2"
+  loop: {{ tmpl_list }}

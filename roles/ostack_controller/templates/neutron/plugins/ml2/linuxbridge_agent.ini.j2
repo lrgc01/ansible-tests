@@ -1,0 +1,20 @@
+#jinja2:variable_start_string:'[%', variable_end_string:'%]'
+[DEFAULT]
+[agent]
+
+[linux_bridge]
+{% if ansible_hostname == "ubuntu4" %}
+physical_interface_mappings = provider:[% ansible_interfaces[3] %]
+{% else %}
+physical_interface_mappings = provider:enp0s5f0
+{% endif %}
+
+[securitygroup]
+enable_security_group = true
+firewall_driver = neutron.agent.linux.iptables_firewall.IptablesFirewallDriver
+
+[vxlan]
+enable_vxlan = true
+local_ip = [% ipaddress_enp0s5f1 %]
+l2_population = true
+udp_dstport = 4789
