@@ -1,0 +1,10 @@
+- hosts: ubuntu
+  gather_facts: no
+  become: true
+  remote_user: luiz
+  tasks:
+  - name: send a message to chat in playbook
+    telegram:
+       token: '692974849:AAH1iOzHoldZ72o5_vg7LDSgTr1DroT3ETI'
+       chat_id: "-268362070"
+       msg: Ansible task finished

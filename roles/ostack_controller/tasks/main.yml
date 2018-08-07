@@ -1,4 +1,4 @@
 ---
 - name: install templates
-  command: echo src="{{ item }}" dest="{{ conf_dir }}/{{ item }}.j2"
-  loop: {{ tmpl_list }}
+  command: echo src="{{ item.key }}" dest="{{ conf_dir }}/{{ item.key }}.j2"
+  loop: "{{ query ('dict', tmpl_list) }}"
