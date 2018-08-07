@@ -1,0 +1,61 @@
+---
+dbtype                : 'mysql'
+dbhost                : 'ostackdb'
+keystonedbname        : 'keystone'
+keystonedbuser        : 'keystone'
+keystonedbpass        : 'keatomos3'
+keystonedbhost        : 'ostackdb'
+glancedbname          : 'glance'
+glancedbuser          : 'glance'
+glancedbpass          : 'glatomos3'
+glancedbhost          : 'ostackdb'
+novadbname            : 'nova'
+novaapidbname         : 'nova_api'
+novadbuser            : 'nova'
+novadbpass            : 'noatomos3'
+novadbhost            : 'ostackdb'
+neutrondbname         : 'neutron'
+neutrondbuser         : 'neutron'
+neutrondbpass         : 'neatomos3'
+neutrondbhost         : 'ostackdb'
+glanceuser            : "glance"
+glancepass            : 'glatomos3'
+novauser              : "nova"
+novapass              : 'noatomos3'
+placemuser            : 'placement'
+placempass            : 'platomos3'
+neutronuser           : "neutron"
+neutronpass           : "noatomos3"
+admindbpass           : 'keatomos3'
+metadatapass          : 'meatomos3'
+memcache_host         : 'memcache'
+controller_host       : 'controller'
+mq_proto              : 'rabbit'
+mq_user               : 'openstack'
+mq_pass               : 'raatomos3'
+mq_host               : 'rabbitmq'
+ostack_region         : 'RegionOne'
+bstp_adm_port         : '35357/v3/'
+bstp_int_port         : '5000/v3/'
+bstp_pub_port         : '5000/v3/'
+nova_adm_port         : '8774/v2.1'
+nova_int_port         : '8774/v2.1'
+nova_pub_port         : '8774/v2.1'
+placem_adm_port       : '8778'
+placem_int_port       : '8778'
+placem_pub_port       : '8778'
+glance_adm_port       : '9292'
+glance_int_port       : '9292'
+glance_pub_port       : '9292'
+neutron_adm_port      : '9696'
+neutron_int_port      : '9696'
+neutron_pub_port      : '9696'
+memcache_port         : '11211'
+service_proj_descr    : "Service Project"
+glance_service_descr  : "OpenStack Image"
+nova_service_descr    : "OpenStack Compute"
+placem_service_descr  : "Placement API"
+neutron_service_descr : "OpenStack Networking"
+dbconnection          : 'mysql+pymysql'
+dbrootpass            : 'docker123'
+dbserv                : "mariadbsrv"

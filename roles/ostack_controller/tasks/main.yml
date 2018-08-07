@@ -1,4 +1,9 @@
 ---
+- name: Ensure directories
+  file: path="{{ dest_dir }}/{{ item }}" owner='luiz' state=directory mode=0755
+  loop: "{{ dir_list }}"
+  register: directoriesinplace
 - name: install templates
-  command: echo src="{{ item.key }}" dest="{{ conf_dir }}/{{ item.key }}.j2"
-  loop: "{{ query ('dict', tmpl_list) }}"
+  template: src="{{ item }}.j2" dest="{{ dest_dir }}/{{ item }}"
+  loop: "{{ tmpl_list }}"
+  when: directoriesinplace is success

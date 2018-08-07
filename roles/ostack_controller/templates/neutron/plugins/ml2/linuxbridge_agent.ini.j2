@@ -15,6 +15,10 @@ firewall_driver = neutron.agent.linux.iptables_firewall.IptablesFirewallDriver
 
 [vxlan]
 enable_vxlan = true
-local_ip = [% ipaddress_enp0s5f1 %]
+{% if ansible_hostname == "ubuntu4" %}
+local_ip = [% ansible_enp0s7.10["ipv4"]["address"] %]
+{% else %}
+local_ip = [% ansible_default_ipv4.address %]
+{% endif %}
 l2_population = true
 udp_dstport = 4789
