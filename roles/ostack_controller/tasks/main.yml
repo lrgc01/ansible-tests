@@ -7,3 +7,4 @@
   template: src="{{ item }}.j2" dest="{{ dest_dir }}/{{ item }}"
   loop: "{{ tmpl_list }}"
   when: directoriesinplace is success
+  notify: Telegram msg when template updated
