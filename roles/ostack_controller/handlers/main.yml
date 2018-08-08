@@ -1,6 +1,6 @@
 ---
 - name: Telegram msg when template updated
   telegram:
-    token: '692974849:AAH1iOzHoldZ72o5_vg7LDSgTr1DroT3ETI'
-    chat_id: "-268362070"
+    token: 
+    chat_id:
     msg: Updated template in {{ ansible_hostname }}
