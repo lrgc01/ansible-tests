@@ -7,4 +7,5 @@
     - /home/luiz/secret/telegram.yml
     - /home/luiz/secret/ostack_ubuntu4_vars.yml
   roles:
-   - ostack_controller
+   - common
+   - os_compute_install

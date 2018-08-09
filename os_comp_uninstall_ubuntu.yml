@@ -1,0 +1,11 @@
+---
+- hosts: ubuntu
+  gather_facts: yes
+  become: true
+  remote_user: luiz
+  vars_files: 
+    - /home/luiz/secret/telegram.yml
+    - /home/luiz/secret/ostack_ubuntu4_vars.yml
+  roles:
+   - common
+   - os_compute_uninstall

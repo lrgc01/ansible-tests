@@ -60,3 +60,4 @@ dbconnection          : 'mysql+pymysql'
 dbrootpass            : 'docker123'
 dbserv                : "mariadbsrv"
 srv_pkg_list          : ["nova-compute","neutron-linuxbridge-agent"]
+cmp_srv_state         : "restarted"

@@ -6,5 +6,5 @@
     msg: Updated template in {{ ansible_hostname }}
 
 - name: Start compute services
-  service: name="{{ item }}" state='restarted'
+  service: name="{{ item }}" state='restarted' enabled='yes'
   loop: "{{ srv_pkg_list }}"

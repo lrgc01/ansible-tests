@@ -1,0 +1,11 @@
+---
+- name: Stop compute services
+  service: name="{{ item }}" state='stopped' enabled='no'
+  loop: "{{ srv_pkg_list }}"
+  register: servicesstopped
+
+- name: Uninstall compute packages
+  apt: pkg="{{ srv_pkg_list }}" state=absent purge="{{ purge_y_n }}" autoremove="{{ autoremove_y_n }}"
+  register: computepkguninstalled
+  when: servicesstopped is success
+

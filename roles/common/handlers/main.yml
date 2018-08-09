@@ -1,0 +1,10 @@
+---
+- name: Telegram msg when template updated
+  telegram:
+    token: "{{ my_token }}"
+    chat_id: "{{ my_chat_id }}"
+    msg: Updated template in {{ ansible_hostname }}
+
+- name: Compute services
+  service: name="{{ item }}" state="{{ cmp_srv_state }}"
+  loop: "{{ srv_pkg_list }}"
