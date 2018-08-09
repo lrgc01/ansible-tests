@@ -1,6 +1,6 @@
 ---
 - name: Telegram msg
   telegram:
-    token: 
-    chat_id:
+    token: "{{ my_token }}"
+    chat_id: "{{ my_chat_id }}"
     msg: Updated template in {{ ansible_hostname }}

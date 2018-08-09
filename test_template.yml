@@ -3,5 +3,7 @@
   gather_facts: yes
   become: true
   remote_user: luiz
+  vars_files:
+   - /home/luiz/secret/telegram.yml
   roles:
    - test_template
