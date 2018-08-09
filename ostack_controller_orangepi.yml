@@ -1,10 +1,10 @@
 ---
-- hosts: ubuntu,debian
+- hosts: debian
   gather_facts: yes
   become: true
   remote_user: luiz
   vars_files: 
     - /home/luiz/secret/telegram.yml
-    - /home/luiz/secret/ostack_vars.yml
+    - /home/luiz/secret/ostack_orangepi_vars.yml
   roles:
    - ostack_controller

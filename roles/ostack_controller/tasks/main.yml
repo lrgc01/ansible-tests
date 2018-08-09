@@ -3,8 +3,33 @@
   file: path="{{ dest_dir }}/{{ item }}" owner='luiz' state=directory mode=0755
   loop: "{{ dir_list }}"
   register: directoriesinplace
-- name: install templates
+
+- name: Install base software packages
+  apt: pkg='software-properties-common' state=present
+  register: spcinstalled
+
+- name: Apt repositories for pike
+  command: add-apt-repository cloud-archive:pike 
+  args:
+   creates: "/etc/apt/sources.list.d/cloudarchive-pike.list"
+  register: cloudrepoadded
+  when: spcinstalled is success
+
+- name: Update cache
+  apt: update_cache=yes
+  register: updatedcache
+  when: cloudrepoadded is success
+
+- name: Install compute packages
+  apt: pkg="{{ srv_pkg_list }}" state=present
+  register: computesrvinstalled
+  when: updatedcache is success
+  notify: Start compute services
+
+- name: Deploy templates
   template: src="{{ item }}.j2" dest="{{ dest_dir }}/{{ item }}"
   loop: "{{ tmpl_list }}"
-  when: directoriesinplace is success
+  when: directoriesinplace is success and computesrvinstalled is success
+  register: templatesinplace
   notify: Telegram msg when template updated
+

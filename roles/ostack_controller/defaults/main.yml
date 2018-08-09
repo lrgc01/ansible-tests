@@ -59,3 +59,4 @@ neutron_service_descr : "OpenStack Networking"
 dbconnection          : 'mysql+pymysql'
 dbrootpass            : 'docker123'
 dbserv                : "mariadbsrv"
+srv_pkg_list          : ["nova-compute","neutron-linuxbridge-agent"]

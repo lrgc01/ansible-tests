@@ -4,8 +4,9 @@
 
 [linux_bridge]
 {% for my_iface in ansible_interfaces -%}
-  {% if hostvars[inventory_hostname]["ansible_" + my_iface]["ipv4"] is defined -%}
-    {%- set my_ip = hostvars[inventory_hostname]["ansible_" + my_iface]["ipv4"]["address"] %}
+  {%- set strip_iface = my_iface|replace('-','_') -%}
+  {% if hostvars[inventory_hostname]["ansible_" + strip_iface]["ipv4"] is defined -%}
+    {%- set my_ip = hostvars[inventory_hostname]["ansible_" + strip_iface]["ipv4"]["address"] %}
     {%- set truncate_ip = my_ip|truncate(10,true,"_")  %}
     {%- if truncate_ip is equalto "192.168.0_" -%}
        physical_interface_mappings = provider:[% my_iface %]
@@ -21,8 +22,9 @@ firewall_driver = neutron.agent.linux.iptables_firewall.IptablesFirewallDriver
 [vxlan]
 enable_vxlan = true
 {% for my_iface in ansible_interfaces -%}
-  {% if hostvars[inventory_hostname]["ansible_" + my_iface]["ipv4"] is defined -%}
-    {%- set my_ip = hostvars[inventory_hostname]["ansible_" + my_iface]["ipv4"]["address"] %}
+  {%- set strip_iface = my_iface|replace('-','_') -%}
+  {% if hostvars[inventory_hostname]["ansible_" + strip_iface]["ipv4"] is defined -%}
+    {%- set my_ip = hostvars[inventory_hostname]["ansible_" + strip_iface]["ipv4"]["address"] %}
     {%- set truncate_ip = my_ip|truncate(11,true,"_")  %}
     {%- if truncate_ip is equalto "192.168.56_" -%}
        local_ip = [% my_ip %]
