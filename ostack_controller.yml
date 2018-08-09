@@ -3,5 +3,8 @@
   gather_facts: yes
   become: true
   remote_user: luiz
+  vars_files: 
+    - /home/luiz/secret/telegram.yml
+    - /home/luiz/secret/ostack_ubuntu_vars.yml
   roles:
    - ostack_controller
