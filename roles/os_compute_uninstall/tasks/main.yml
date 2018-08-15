@@ -1,11 +1,21 @@
 ---
-- name: Stop compute services
-  service: name="{{ item }}" state='stopped' enabled='no'
+- name: Check if installed
+  command: dpkg -V "{{ item }}"
   loop: "{{ srv_pkg_list }}"
-  register: servicesstopped
+  failed_when: false
+  changed_when: false
+  no_log: true
+  register: pkg_is_installed
+
+- name: Stop compute services
+  service: name="{{ item.item }}" state='stopped' enabled='no'
+  when: item.rc == 0
+  loop: "{{ pkg_is_installed.results }}"
+  no_log: true
+  register: services_stopped
 
 - name: Uninstall compute packages
   apt: pkg="{{ srv_pkg_list }}" state=absent purge="{{ purge_y_n }}" autoremove="{{ autoremove_y_n }}"
-  register: computepkguninstalled
-  when: servicesstopped is success
+  register: compute_pkg_uninstalled
+  when: services_stopped is success
 
