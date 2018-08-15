@@ -1,0 +1,135 @@
+#jinja2:variable_start_string:'[%', variable_end_string:'%]'
+[DEFAULT]
+lock_path = /var/lock/nova
+state_path = /var/lib/nova
+transport_url = [% mq_proto %]://[% mq_user %]:[% mq_pass %]@[% mq_host %]
+{% for my_iface in ansible_interfaces -%}
+  {%- set strip_iface = my_iface|replace('-','_') -%}
+  {% if hostvars[inventory_hostname]["ansible_" + strip_iface]["ipv4"] is defined -%}
+    {%- set my_ip = hostvars[inventory_hostname]["ansible_" + strip_iface]["ipv4"]["address"] %}
+    {%- set truncate_ip = my_ip|truncate(11,true,"_")  %}
+    {%- if truncate_ip is equalto "192.168.56_" -%}
+       my_ip = [% my_ip %]
+    {%- endif %}
+  {%- endif %}
+{%- endfor %}
+
+use_neutron = True
+firewall_driver = nova.virt.firewall.NoopFirewallDriver
+connection = [% dbconnection %]://[% novadbuser %]:[% novadbpass %]@[% novadbhost %]/[% novaapidbname %]
+
+[api]
+auth_strategy = keystone
+
+[api_database]
+connection = [% dbconnection %]://[% novadbuser %]:[% novadbpass %]@[% dbhost %]/[% novaapidbname %]
+
+[barbican]
+[cache]
+
+[cells]
+enable = False
+
+[cinder]
+[compute]
+[conductor]
+[console]
+[consoleauth]
+[cors]
+[crypto]
+
+[database]
+connection = [% dbconnection %]://[% novadbuser %]:[% novadbpass %]@[% dbhost %]/[% novadbname %]
+
+[ephemeral_storage_encryption]
+[filter_scheduler]
+
+[glance]
+api_servers = http://[% controller_host %]:[% glance_pub_port %]
+
+[guestfs]
+[healthcheck]
+[hyperv]
+[ironic]
+[key_manager]
+[keystone]
+
+[keystone_authtoken]
+auth_uri = http://[% controller_host %]:[% bstp_int_port %]
+auth_url = http://[% controller_host %]:[% bstp_adm_port %]
+memcached_servers = [% memcache_host %]:[% memcache_port %]
+auth_type = password
+project_domain_name = default
+user_domain_name = default
+project_name = service
+username = [% novauser %]
+password = [% novapass %]
+
+[libvirt]
+[matchmaker_redis]
+[metrics]
+[mks]
+
+[neutron]
+url = http://[% controller_host %]:[% neutron_adm_port %]
+auth_url = http://[% controller_host %]:[% bstp_adm_port %]
+auth_type = password
+project_domain_name = default
+user_domain_name = default
+region_name = [% ostack_region %]
+project_name = service
+username = [% neutronuser %]
+password = [% neutronpass %]
+service_metadata_proxy = true
+metadata_proxy_shared_secret = [% metadatapass %]
+
+[notifications]
+[osapi_v21]
+
+[oslo_concurrency]
+lock_path = /var/lib/nova/tmp
+
+[oslo_messaging_amqp]
+[oslo_messaging_kafka]
+[oslo_messaging_notifications]
+[oslo_messaging_rabbit]
+[oslo_messaging_zmq]
+[oslo_middleware]
+[oslo_policy]
+[pci]
+
+[placement]
+os_region_name = [% ostack_region %]
+project_domain_name = Default
+project_name = service
+auth_type = password
+user_domain_name = Default
+auth_url = http://[% controller_host %]:[% bstp_adm_port %]
+username = [% placemuser %]
+password = [% placempass %]
+
+[quota]
+[rdp]
+[remote_debug]
+
+[scheduler]
+discover_hosts_in_cells_interval = 300
+
+[serial_console]
+[service_user]
+[spice]
+[trusted_computing]
+[upgrade_levels]
+[vendordata_dynamic_auth]
+[vmware]
+
+[vnc]
+enabled = true
+vncserver_listen = $my_ip
+vncserver_proxyclient_address = $my_ip
+
+[workarounds]
+[wsgi]
+[xenserver]
+[xvp]
+
