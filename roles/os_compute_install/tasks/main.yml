@@ -1,35 +1,40 @@
 ---
 - name: Ensure directories
-  file: path="{{ dest_dir }}/{{ item }}" owner='luiz' state=directory mode=0755
+  file: path="{{ dest_dir }}/{{ item }}" state=directory 
   loop: "{{ dir_list }}"
-  register: directoriesinplace
+  register: directories_in_place
+  tags: config_files
 
 - name: Install base software packages
   apt: pkg='software-properties-common' state=present
-  register: spcinstalled
+  register: spc_installed
+  tags: update_rep
 
 - name: Apt repositories for pike
   command: add-apt-repository cloud-archive:pike 
   args:
    creates: "/etc/apt/sources.list.d/cloudarchive-pike.list"
-  register: cloudrepoadded
-  when: spcinstalled is success
+  register: cloud_repo_added
+  when: spc_installed is success
+  tags: update_rep
 
 - name: Update cache
   apt: update_cache=yes
-  register: updatedcache
-  when: cloudrepoadded is success
+  register: updated_cache
+  when: cloud_repo_added is changed
+  tags: update_rep
 
 - name: Install compute packages
   apt: pkg="{{ srv_pkg_list }}" state=present
-  register: computesrvinstalled
-  when: updatedcache is success
+  register: compute_srv_installed
   notify: Start compute services
+  tags: install_pkg
 
 - name: Deploy templates
   template: src="{{ item }}.j2" dest="{{ dest_dir }}/{{ item }}"
   loop: "{{ tmpl_list }}"
-  when: directoriesinplace is success and computesrvinstalled is success
-  register: templatesinplace
+  when: directories_in_place is success
+  register: templates_in_place
+  tags: config_files
   notify: Telegram msg when template updated
 

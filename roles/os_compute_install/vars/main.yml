@@ -1,0 +1,4 @@
+---
+dest_dir: "/etc"
+dir_list: [ 'neutron/plugins/ml2', 'nova' ]
+tmpl_list: [ 'neutron/plugins/ml2/linuxbridge_agent.ini', 'neutron/neutron.conf', 'nova/nova.conf' ]
