@@ -126,7 +126,17 @@ discover_hosts_in_cells_interval = 300
 [vnc]
 enabled = true
 vncserver_listen = $my_ip
-vncserver_proxyclient_address = $my_ip
+{% for my_iface in ansible_interfaces -%}
+  {%- set strip_iface = my_iface|replace('-','_') -%}
+  {% if hostvars[inventory_hostname]["ansible_" + strip_iface]["ipv4"] is defined -%}
+    {%- set my_ip = hostvars[inventory_hostname]["ansible_" + strip_iface]["ipv4"]["address"] %}
+    {%- set truncate_ip = my_ip|truncate(11,true,"_")  %}
+    {%- if truncate_ip is equalto "192.168.56_" -%}
+       vncserver_proxyclient_address = [% my_ip %]
+    {%- endif %}
+  {%- endif %}
+{%- endfor %}
+
 
 [workarounds]
 [wsgi]

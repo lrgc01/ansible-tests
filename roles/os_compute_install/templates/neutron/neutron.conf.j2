@@ -1,23 +1,14 @@
 #jinja2:variable_start_string:'[%', variable_end_string:'%]'
 [DEFAULT]
 core_plugin = ml2
-service_plugins = router
-allow_overlapping_ips = true
-
-auth_strategy = keystone
-
-notify_nova_on_port_status_changes = true
-notify_nova_on_port_data_changes = true
-
 transport_url = [% mq_proto %]://[% mq_user %]:[% mq_pass %]@[% mq_host %]
+auth_strategy = keystone
 
 [agent]
 root_helper = sudo /usr/bin/neutron-rootwrap /etc/neutron/rootwrap.conf
 
 [cors]
-
 [database]
-connection = [% dbconnection %]://[% neutrondbuser %]:[% neutrondbpass %]@[% dbhost %]/[% neutrondbname %]
 
 [keystone_authtoken]
 auth_uri = http://[% controller_host %]:[% bstp_int_port %]
@@ -31,17 +22,7 @@ username = [% neutronuser %]
 password = [% neutronpass %]
 
 [matchmaker_redis]
-
 [nova]
-auth_url = http://[% controller_host %]:[% bstp_adm_port %]
-auth_type = password
-project_domain_name = default
-user_domain_name = default
-region_name = [% ostack_region %]
-project_name = service
-username = [% novauser %]
-password = [% novapass %]
-
 [oslo_concurrency]
 [oslo_messaging_amqp]
 [oslo_messaging_kafka]
